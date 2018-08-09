@@ -39,4 +39,4 @@ testem.log
 Thumbs.db
 
 # Angular Node modules
-**/node_modules/*.*
+**/node_modules
