@@ -1,0 +1,9 @@
+<button id="DetailsButton"
+    class="btn btn-primary"
+    (click)="onDisplayDetails()">Display Details</button>
+<p *ngIf="detailsVisible">Oxyopes salticus is a species of lynx spider, commonly known as the Striped Lynx Spider, first described by Hentz in 1845. Its habitat tends to be grasses and leafy vegetation; grassy, weedy fields, and row crops.</p>
+<ul>Button Clicks:
+    <li 
+        *ngFor="let click of clickArray; let i = index"
+        [ngClass]="{blueAndWhite: i >= 4}">{{ click }}</li>
+</ul>
