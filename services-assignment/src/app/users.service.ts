@@ -1,7 +1,7 @@
 import { OnInit, Injectable } from "../../node_modules/@angular/core";
 import { CounterService } from "./counter.service";
 
-@Injectable({providedIn: 'root'})
+@Injectable()
 export class UsersService implements OnInit {
     users: {name: string, active: boolean}[] = [
         {name: 'Max', active: true},
