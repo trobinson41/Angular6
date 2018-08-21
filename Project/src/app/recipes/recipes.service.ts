@@ -1,17 +1,43 @@
-import { EventEmitter, Output } from '../../../node_modules/@angular/core';
+import { EventEmitter, Output, Injectable } from '../../../node_modules/@angular/core';
 import { Recipe } from './recipe.model';
+import { Ingredient } from '../shared/ingredient.model';
+import { ShoppingListService } from '../shopping-list/shopping-list.service';
 
+@Injectable()
 export class RecipesService {
     recipeSelected = new EventEmitter<Recipe>();
 
     private recipes: Recipe[] = [
-        new Recipe('A Test Recipe', 'This is a test.', 'https://www.google.com/url?sa=i&source=images&cd=&cad=rja&uact=8&ved=2ahUKEwifm7r3_ezcAhVOaq0KHU7gBVEQjRx6BAgBEAU&url=https%3A%2F%2Fcommons.wikimedia.org%2Fwiki%2FFile%3ARecipe_logo.jpeg&psig=AOvVaw3J_cZ0OY2n0OCEWAG_-XZk&ust=1534351239258029'),
-        new Recipe('Recipe 2', 'A new test.', 'https://www.google.com/url?sa=i&source=images&cd=&cad=rja&uact=8&ved=2ahUKEwifm7r3_ezcAhVOaq0KHU7gBVEQjRx6BAgBEAU&url=https%3A%2F%2Fcommons.wikimedia.org%2Fwiki%2FFile%3ARecipe_logo.jpeg&psig=AOvVaw3J_cZ0OY2n0OCEWAG_-XZk&ust=1534351239258029')
+        new Recipe(
+            'Tasty Schnitzel', 
+            'A super-tasty Schnitzel - just awesome!', 
+            'https://upload.wikimedia.org/wikipedia/commons/7/72/Schnitzel.JPG',
+            [
+                new Ingredient('Meat', 1),
+                new Ingredient('French Fries', 20)
+            ]
+        ),
+        new Recipe(
+            'Angus Bacon Cheesesteak Burger', 
+            'What else you need to say?', 
+            'https://upload.wikimedia.org/wikipedia/commons/b/be/Burger_King_Angus_Bacon_%26_Cheese_Steak_Burger.jpg',
+            [
+                new Ingredient('Bun', 1),
+                new Ingredient('Steak patty', 1),
+                new Ingredient('French Fries', 20)
+            ]
+        )
     ];
+
+    constructor(private shoppingListService: ShoppingListService) {}
 
     getRecipes() {
         // Adding slice() causes the method to return a copy of the array, rather than a
         // reference to the original array.
         return this.recipes.slice();
+    }
+
+    addIngredientsToShoppingList(ingredients: Ingredient[]) {
+        this.shoppingListService.addIngredients(ingredients);
     }
 }
