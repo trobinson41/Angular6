@@ -1,0 +1,30 @@
+import { CanActivate, CanActivateChild, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { Observable } from '../../node_modules/rxjs';
+import { Injectable } from '../../node_modules/@angular/core';
+import { AuthService } from './auth.service';
+
+@Injectable()
+export class AuthGuard implements CanActivate, CanActivateChild {
+    constructor(private authService: AuthService, private router: Router) {}
+
+    canActivate(
+        route: ActivatedRouteSnapshot, 
+        state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+            return this.authService.isAuthenticated().then(
+                (authenticated: boolean) => {
+                    if (authenticated) {
+                        return true;
+                    } else {
+                        alert('You must be logged in to access Servers.');
+                        this.router.navigate(['/']);
+                    }
+                }
+            );        
+    }
+
+    canActivateChild(
+        route: ActivatedRouteSnapshot, 
+        state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+            return this.canActivate(route, state);
+    }
+}
