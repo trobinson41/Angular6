@@ -12,10 +12,10 @@ import { RecipesService } from './recipes.service';
 export class RecipesComponent implements OnInit {
   @Input() selectedRecipe: Recipe;
 
-  constructor(private recipeService: RecipesService) { }
+  constructor(private recipesService: RecipesService) { }
 
   ngOnInit() {
-    this.recipeService.recipeSelected.subscribe(
+    this.recipesService.recipeSelected.subscribe(
       (recipe: Recipe) => this.selectedRecipe = recipe
     );
   }
