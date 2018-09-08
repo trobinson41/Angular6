@@ -16,7 +16,7 @@ const appRoutes: Routes = [
         { path: ':id/edit', component: RecipeEditComponent }
     ] },
     { path: 'shopping-list', component: ShoppingListComponent },
-    { path: '**', component: ErrorPageComponent, data: {message: 'Page not found!' }
+    { path: '**', component: ErrorPageComponent, data: {message: 'Page not found!' } }
 ];
 
 @NgModule({
