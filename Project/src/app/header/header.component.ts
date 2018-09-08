@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from "@angular/core"
-import { RecipesService } from "../recipes/recipes.service";
 import { Subscription } from "../../../node_modules/rxjs";
 import { Recipe } from "../recipes/recipe.model";
+import { DataStorageService } from "../shared/data-storage.service";
 
 @Component({
     selector: 'app-header',
@@ -10,9 +10,8 @@ import { Recipe } from "../recipes/recipe.model";
 })
 export class HeaderComponent implements OnInit, OnDestroy {
     storeSubscription: Subscription;
-    fetchSubscription: Subscription;
 
-    constructor(private recipesService: RecipesService) {
+    constructor(private dataStorageService: DataStorageService) {
 
     }
 
@@ -21,7 +20,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
 
     onSaveData() {
-        this.storeSubscription = this.recipesService.storeRecipes()
+        this.storeSubscription = this.dataStorageService.storeRecipes()
             .subscribe(
                 (response) => alert('Recipes saved!'),
                 (error) => alert('Error saving recipes: ' + error)
@@ -29,16 +28,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
 
     onFetchData() {
-        this.fetchSubscription = this.recipesService.fetchRecipes()
-            .subscribe(
-                (recipes: Recipe[]) => {
-                    this.recipesService.setRecipes(recipes);
-                }
-            );
+        this.dataStorageService.getRecipes();
     }
 
     ngOnDestroy() {
         this.storeSubscription.unsubscribe();
-        this.fetchSubscription.unsubscribe();
     }
 }
