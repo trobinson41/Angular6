@@ -3,7 +3,6 @@ import { Recipe } from './recipe.model';
 import { Ingredient } from '../shared/ingredient.model';
 import { ShoppingListService } from '../shopping-list/shopping-list.service';
 import { Subject, Observable } from '../../../node_modules/rxjs';
-import { Http } from '../../../node_modules/@angular/http';
 import 'rxjs';
 import { map } from 'rxjs/operators'
 
@@ -34,7 +33,7 @@ export class RecipesService {
         )
     ];
 
-    constructor(private shoppingListService: ShoppingListService, private http: Http) {}
+    constructor(private shoppingListService: ShoppingListService) {}
 
     getRecipes() {
         // Adding slice() causes the method to return a copy of the array, rather than a
@@ -70,30 +69,5 @@ export class RecipesService {
     setRecipes(recipes: Recipe[]) {
         this.recipes = recipes;
         this.recipesChanged.next(this.recipes.slice());
-      }
-
-    // storeRecipes() {
-    //    return this.http.put('https://ng-recipe-book-faea8.firebaseio.com/recipes.json', this.recipes);
-    // }
-
-    // fetchRecipes() {
-    //     return this.http.get('https://ng-recipe-book-faea8.firebaseio.com/recipes.json').pipe(
-    //         map(
-    //             (response: Response) => {
-    //                 const recipes = response.json();
-    //                 for (let recipe of this.recipes) {
-    //                     if (!recipe.ingredients) {
-    //                         console.log(recipe);
-    //                         recipe.ingredients = [];
-    //                     }
-    //                 }
-    //                 return recipes;
-    //             },
-    //             (error: Response) => {
-    //                 alert('Error retrieving recipes');
-    //                 return Observable.throw(error);
-    //             }
-    //         )
-    //     );
-    // }
+    }
 }
