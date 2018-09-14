@@ -27,21 +27,21 @@ export class DataStorageService {
       observe: 'body',
       responseType: 'json'
     })
-      .map(
-        (recipes) => {
-          console.log(recipes);
-          for (let recipe of recipes) {
-            if (!recipe['ingredients']) {
-              recipe['ingredients'] = [];
-            }
+    .map(
+      (recipes) => {
+        console.log(recipes);
+        for (let recipe of recipes) {
+          if (!recipe['ingredients']) {
+            recipe['ingredients'] = [];
           }
-          return recipes;
         }
-      )
-      .subscribe(
-        (recipes: Recipe[]) => {
-          this.recipeService.setRecipes(recipes);
-        }
-      );
+        return recipes;
+      }
+    )
+    .subscribe(
+      (recipes: Recipe[]) => {
+        this.recipeService.setRecipes(recipes);
+      }
+    );
   }
 }
